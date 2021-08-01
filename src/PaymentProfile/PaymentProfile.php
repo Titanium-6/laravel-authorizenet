@@ -9,21 +9,24 @@ class PaymentProfile extends AuthorizeNet
 {
     public function create($opaqueData, array $source)
     {
-        $merchantKeys = $this->getMerchantAuthentication();
+     	$merchantKeys = $this->getMerchantAuthentication();
 
-        if($opaqueData instanceof OpaqueData){
-            $opaqueDataType = $opaqueData;
-        }else{
-            $opaqueDataType = new AnetAPI\OpaqueDataType();
-            $opaqueDataType->setDataDescriptor($opaqueData['dataDescriptor']);
-            $opaqueDataType->setDataValue($opaqueData['dataValue']);
-        }
-        
+        $opaqueDataType = new AnetAPI\OpaqueDataType();
+        $opaqueDataType->setDataDescriptor($opaqueData['dataDescriptor']);
+        $opaqueDataType->setDataValue($opaqueData['dataValue']);
+
         $paymentType = new AnetAPI\PaymentType();
         $paymentType->setOpaqueData($opaqueDataType);
 
+        // https://github.com/AuthorizeNet/sample-code-php/blob/master/CustomerProfiles/create-customer-payment-profile.php
+        // Create the Bill To info for new payment type
+        $billto = new AnetAPI\CustomerAddressType();
+        $billto->setFirstName($opaqueData['billingFirstName']);
+        $billto->setLastName($opaqueData['billingFirstName']);
+
         $customerPaymentProfileType = new AnetAPI\CustomerPaymentProfileType;
         $customerPaymentProfileType->setPayment($paymentType);
+        $customerPaymentProfileType->setBillTo($billto);
 
         // Assemble the complete transaction request
         $paymentProfileRequest = new AnetAPI\CreateCustomerPaymentProfileRequest();
@@ -41,7 +44,7 @@ class PaymentProfile extends AuthorizeNet
             $this->storeInDatabase($response, $source);
         }
 
-        return $response;
+	    return $response;
     }
 
     /**
@@ -51,7 +54,7 @@ class PaymentProfile extends AuthorizeNet
      */
     public function storeInDatabase($response, $source)
     {
-        return \DB::table('user_payment_profiles')->insert([
+     	return \DB::table('user_payment_profiles')->insert([
             'user_id'               => $this->user->id,
             'payment_profile_id'    => $response->getCustomerPaymentProfileId(),
             'last_4'                => $source['last_4'],
@@ -59,8 +62,4 @@ class PaymentProfile extends AuthorizeNet
             'type'                  => $source['type']
         ]);
     }
-
-
-
-
 }
