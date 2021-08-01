@@ -11,10 +11,14 @@ class PaymentProfile extends AuthorizeNet
     {
         $merchantKeys = $this->getMerchantAuthentication();
 
-        $opaqueDataType = new AnetAPI\OpaqueDataType();
-        $opaqueDataType->setDataDescriptor($opaqueData['dataDescriptor']);
-        $opaqueDataType->setDataValue($opaqueData['dataValue']);
-
+        if($opaqueData instanceof OpaqueData){
+            $opaqueDataType = $opaqueData;
+        }else{
+            $opaqueDataType = new AnetAPI\OpaqueDataType();
+            $opaqueDataType->setDataDescriptor($opaqueData['dataDescriptor']);
+            $opaqueDataType->setDataValue($opaqueData['dataValue']);
+        }
+        
         $paymentType = new AnetAPI\PaymentType();
         $paymentType->setOpaqueData($opaqueDataType);
 
