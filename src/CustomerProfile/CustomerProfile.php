@@ -44,12 +44,15 @@ class CustomerProfile extends AuthorizeNet {
                 );
             }
 
-            dd($response->getMessages()->getMessage()[0]);
-
             Log::debug($response->getMessages()->getMessage()[0]->getText());
-            //throw new \Exception('Failed, To create customer profile.');
 
-            return ['error'=>true, 'message'=>$response->getMessages()->getMessage()[0]->getText()];
+            // Check For Duplicate Profile and return response
+            $error_code = $response->getMessages()->getMessage()[0]->getCode();
+            if($error_code == 'E00039'){
+                return $response;
+            }
+
+            throw new \Exception('Failed, To create customer profile.');
         }
 
         return $response;
