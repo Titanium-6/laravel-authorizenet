@@ -22,7 +22,7 @@ class PaymentProfile extends AuthorizeNet
         // Create the Bill To info for new payment type
         $billto = new AnetAPI\CustomerAddressType();
         $billto->setFirstName($opaqueData['billingFirstName']);
-        $billto->setLastName($opaqueData['billingFirstName']);
+        $billto->setLastName($opaqueData['billingLastName']);
 
         $customerPaymentProfileType = new AnetAPI\CustomerPaymentProfileType;
         $customerPaymentProfileType->setPayment($paymentType);
