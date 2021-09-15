@@ -25,6 +25,8 @@ class CustomerProfile extends AuthorizeNet {
 
         if( method_exists($response, 'getCustomerProfileId') ) {
             $this->persistInDatabase($response->getCustomerProfileId());
+        }else if(isset($response->profile_id) && $response->profile_id){
+            $this->persistInDatabase($response->profile_id);
         }
 
         return $response;
@@ -45,6 +47,21 @@ class CustomerProfile extends AuthorizeNet {
             }
 
             Log::debug($response->getMessages()->getMessage()[0]->getText());
+
+            // Check For Duplicate Profile and return response
+            $error_code = $response->getMessages()->getMessage()[0]->getCode();          
+
+            if($error_code == 'E00039'){
+                $re = '/A duplicate record with ID (?<profileId>[0-9]+) already exists/m';
+                $str = $response->getMessages()->getMessage()[0]->getText();
+
+                preg_match($re, $str, $matches);
+
+                $profile_id = $matches['profileId'] ?? '';
+
+                $response = (object)['status'=>true, 'profile_id'=>$profile_id];
+                return $response;
+            }
 
             throw new \Exception('Failed, To create customer profile.');
         }
