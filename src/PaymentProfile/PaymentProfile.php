@@ -61,6 +61,7 @@ class PaymentProfile extends AuthorizeNet
             ],
             [
                 'last_4'                => $source['last_4'],
+                'expiry_date'           => $source['expiry_date'],
                 'brand'                 => $source['brand'],
                 'type'                  => $source['type']
             ],
