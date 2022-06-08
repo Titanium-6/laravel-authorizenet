@@ -4,4 +4,3 @@ return [
     'client_key' => env('AUTHORIZE_NET_CLIENT_KEY'),
     'transaction_key' => env('AUTHORIZE_NET_TRANSACTION_KEY')
 ];
-

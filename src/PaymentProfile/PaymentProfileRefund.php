@@ -37,7 +37,4 @@ class PaymentProfileRefund extends AuthorizeNet
         $controller = new AnetControllers\CreateTransactionController($request);
         return $this->execute($controller);
     }
-
-
-
 }

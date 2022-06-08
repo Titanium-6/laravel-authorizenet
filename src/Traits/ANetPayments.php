@@ -5,7 +5,6 @@ use ANet\ANet;
 
 trait ANetPayments
 {
-
     /**
      * @return ANet
      */
@@ -13,6 +12,4 @@ trait ANetPayments
     {
         return new ANet($this);
     }
-
-
 }
