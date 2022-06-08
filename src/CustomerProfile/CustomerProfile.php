@@ -49,7 +49,7 @@ class CustomerProfile extends AuthorizeNet {
             Log::debug($response->getMessages()->getMessage()[0]->getText());
 
             // Check For Duplicate Profile and return response
-            $error_code = $response->getMessages()->getMessage()[0]->getCode();          
+            $error_code = $response->getMessages()->getMessage()[0]->getCode();
 
             if($error_code == 'E00039'){
                 $re = '/A duplicate record with ID (?<profileId>[0-9]+) already exists/m';
@@ -76,10 +76,14 @@ class CustomerProfile extends AuthorizeNet {
      */
     protected function persistInDatabase(string $customerProfileId) : bool
     {
-        return DB::table('user_gateway_profiles')->insert([
-            'profile_id' => $customerProfileId,
-            'user_id' => $this->user->id
-        ]);
+        return \DB::table('user_gateway_profiles')->updateOrInsert(
+            [
+                'user_id' => $this->user->id
+            ],
+            [
+                'profile_id' => $customerProfileId,
+            ],
+        );
     }
 
     /**

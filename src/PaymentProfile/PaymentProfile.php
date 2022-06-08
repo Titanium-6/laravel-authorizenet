@@ -54,12 +54,17 @@ class PaymentProfile extends AuthorizeNet
      */
     public function storeInDatabase($response, $source)
     {
-     	return \DB::table('user_payment_profiles')->insert([
-            'user_id'               => $this->user->id,
-            'payment_profile_id'    => $response->getCustomerPaymentProfileId(),
-            'last_4'                => $source['last_4'],
-            'brand'                 => $source['brand'],
-            'type'                  => $source['type']
-        ]);
+     	return \DB::table('user_payment_profiles')->updateOrInsert(
+            [
+                'user_id'               => $this->user->id,
+                'payment_profile_id'    => $response->getCustomerPaymentProfileId(),
+            ],
+            [
+                'last_4'                => $source['last_4'],
+                'expiry_date'           => $source['expiry_date'],
+                'brand'                 => $source['brand'],
+                'type'                  => $source['type']
+            ],
+        );
     }
 }

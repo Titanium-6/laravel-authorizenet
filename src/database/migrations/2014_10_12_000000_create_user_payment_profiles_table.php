@@ -18,6 +18,7 @@ class CreateUserPaymentProfilesTable extends Migration
             $table->unsignedInteger('user_id');
             $table->string('payment_profile_id');
             $table->string('last_4');
+            $table->string('expiry_date');
             $table->enum('type', [
                 'bank',
                 'card'
