@@ -160,16 +160,11 @@ abstract class AuthorizeNet
     public function execute($controller)
     {
         $env = config('app.env');
-        switch ($env) {
-            case 'development':
-                return $controller->executeWithApiResponse(ANetEnvironment::SANDBOX);
-            case 'testing':
-                return $controller->executeWithApiResponse(ANetEnvironment::SANDBOX);
-            case 'local':
-                return $controller->executeWithApiResponse(ANetEnvironment::SANDBOX);
-            default:
-                return $controller->executeWithApiResponse(ANetEnvironment::PRODUCTION);
+        if ($env == 'production') {
+            return $controller->executeWithApiResponse(ANetEnvironment::PRODUCTION);
         }
+
+        return $controller->executeWithApiResponse(ANetEnvironment::SANDBOX);
     }
 
     public function testingResponse($controller)
@@ -180,9 +175,10 @@ abstract class AuthorizeNet
     public function getANetEnv()
     {
         $env = config('app.env');
-        if ($env == 'development' || $env == 'testing' || $env == 'local') {
-            return ANetEnvironment::SANDBOX;
+        if ($env == 'production') {
+            return ANetEnvironment::PRODUCTION;
         }
-        return ANetEnvironment::PRODUCTION;
+
+        return ANetEnvironment::SANDBOX;
     }
 }
