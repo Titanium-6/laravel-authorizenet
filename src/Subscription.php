@@ -1,4 +1,6 @@
-<?php namespace ANet;
+<?php
+
+namespace ANet;
 
 use DateTime;
 use net\authorize\api\contract\v1 as AnetAPI;

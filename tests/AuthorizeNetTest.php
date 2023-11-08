@@ -16,7 +16,7 @@ class AuthorizeNetTest extends BaseTestCase
     /** @var AuthorizeNet */
     protected $authorizenet;
 
-    protected function setUp():void
+    protected function setUp(): void
     {
         parent::setUp();
         $user = new User();
@@ -103,7 +103,6 @@ class AuthorizeNetTest extends BaseTestCase
         config(['app.env' => 'testing']);
         $anetEnv = $this->authorizenet->getANetEnv();
         $this->assertEquals(ANetEnvironment::SANDBOX, $anetEnv);
-
     }
 
     public function test_if_anet_env_is_returning_production_link_for_prod_env()
@@ -112,5 +111,4 @@ class AuthorizeNetTest extends BaseTestCase
         $anetEnv = $this->authorizenet->getANetEnv();
         $this->assertEquals(ANetEnvironment::PRODUCTION, $anetEnv);
     }
-
 }

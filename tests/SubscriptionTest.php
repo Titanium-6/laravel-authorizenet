@@ -1,4 +1,6 @@
-<?php namespace ANet\Tests;
+<?php
+
+namespace ANet\Tests;
 
 use ANet\Subscription;
 use App\Models\User;

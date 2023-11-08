@@ -24,7 +24,7 @@ abstract class BaseTestCase extends TestCase
 
     public function generateCustomerId($user = null)
     {
-        if(! $user ) {
+        if (!$user) {
             $user = $this->getFakeUser();
         }
         $user->anet()->createCustomerProfile();
@@ -32,8 +32,9 @@ abstract class BaseTestCase extends TestCase
         return $user;
     }
 
-    public function getCustomerWithPaymentProfile($user = null) {
-        if( is_null($user) ) {
+    public function getCustomerWithPaymentProfile($user = null)
+    {
+        if (is_null($user)) {
             $user = $this->generateCustomerId();
         }
 
@@ -83,14 +84,12 @@ abstract class BaseTestCase extends TestCase
                 'content' => $payload,
             ),
         )));
-//        if(get_magic_quotes_gpc()){ Deprecated in php7.4
-//            $result = stripslashes($result);
-//        }
+        //        if(get_magic_quotes_gpc()){ Deprecated in php7.4
+        //            $result = stripslashes($result);
+        //        }
 
         $result = utf8_decode($result);
         $out = json_decode(str_replace("?", "", $result));
         return  $out->opaqueData;
     }
-
-
 }

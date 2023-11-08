@@ -1,4 +1,5 @@
 <?php
+
 namespace ANet\PaymentProfile;
 
 use net\authorize\api\contract\v1 as AnetAPI;
@@ -23,7 +24,7 @@ class PaymentProfileRefund extends AuthorizeNet
         $paymentProfile->setPaymentProfileId($paymentProfileId);
 
         $transactionRequestType = new AnetAPI\TransactionRequestType();
-        $transactionRequestType->setTransactionType( "refundTransaction");
+        $transactionRequestType->setTransactionType("refundTransaction");
 
         $transactionRequestType->setAmount($amount);
         $transactionRequestType->setProfile($customerProfile);

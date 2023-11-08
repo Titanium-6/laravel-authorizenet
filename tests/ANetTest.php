@@ -66,7 +66,7 @@ class ANetTest extends BaseTestCase
 
         $this->assertDatabaseHas('user_payment_profiles', [
             'user_id' => $user->id,
-            'payment_profile_id' =>$paymentProfile->getCustomerPaymentProfileId()
+            'payment_profile_id' => $paymentProfile->getCustomerPaymentProfileId()
         ]);
     }
 
