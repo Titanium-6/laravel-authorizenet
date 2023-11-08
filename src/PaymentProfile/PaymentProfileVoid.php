@@ -6,12 +6,10 @@ use net\authorize\api\contract\v1 as AnetAPI;
 use net\authorize\api\controller as AnetControllers;
 use ANet\AuthorizeNet;
 
-class PaymentProfileRefund extends AuthorizeNet
+class PaymentProfileVoid extends AuthorizeNet
 {
-    public function handle(int $cents, $refsTransId, $paymentProfileId)
+    public function handle($refsTransId, $paymentProfileId)
     {
-        $amount = $this->convertCentsToDollar($cents);
-
         $paymentProfile = new AnetAPI\PaymentProfileType();
         $paymentProfile->setPaymentProfileId($paymentProfileId);
 
@@ -24,9 +22,8 @@ class PaymentProfileRefund extends AuthorizeNet
         $paymentProfile->setPaymentProfileId($paymentProfileId);
 
         $transactionRequestType = new AnetAPI\TransactionRequestType();
-        $transactionRequestType->setTransactionType("refundTransaction");
+        $transactionRequestType->setTransactionType("voidTransaction");
 
-        $transactionRequestType->setAmount($amount);
         $transactionRequestType->setProfile($customerProfile);
         $transactionRequestType->setRefTransId($refsTransId);
 

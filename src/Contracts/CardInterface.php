@@ -1,4 +1,6 @@
-<?php namespace ANet\Contracts;
+<?php
+
+namespace ANet\Contracts;
 
 use net\authorize\api\contract\v1 as AnetAPI;
 
@@ -44,28 +46,28 @@ interface CardInterface
      * @param int|String $month
      * @return $this
      */
-    public function setExpMonth($month) : self;
+    public function setExpMonth($month): self;
 
     /**
      * It will set year with the format of YYYY
      * @param int $year (in format YYYY e.g. 2043)
      * @return $this
      */
-    public function setExpYear(int $year) : self;
+    public function setExpYear(int $year): self;
 
     /**
      * it will set the type of credit card
      * @param string $type
      * @return $this
      */
-    public function setType(string $type = 'Credit') : self;
+    public function setType(string $type = 'Credit'): self;
 
     /**
      * It sets brand name of the card like visa, master, etc.
      * @param string $brandName
      * @return $this
      */
-    public function setBrand(string $brandName) : self;
+    public function setBrand(string $brandName): self;
 
     /**
      * If all given information is correct it will try charging the user
@@ -77,19 +79,19 @@ interface CardInterface
      * It will return brand name if not given then null
      * @return string|null
      */
-    public function getBrand() : ?string;
+    public function getBrand(): ?string;
 
     /**
      * It will return the type of card like Credit, Debit, Gift, returns null if not provided
      * @return string|null
      */
-    public function getType() : ?string;
+    public function getType(): ?string;
 
     /**
      * It will return card number if exists otherwise will return null
      * @return string|null
      */
-    public function getNumbers() : ?string;
+    public function getNumbers(): ?string;
 
     /**
      * It will return cvv given or null if not given
@@ -101,29 +103,29 @@ interface CardInterface
      * It will return name on card if not given then returns null
      * @return string|null
      */
-    public function getNameOnCard() : ?string;
+    public function getNameOnCard(): ?string;
 
     /**
      * It will return amount set in cents otherwise null
      * @return int|null
      */
-    public function getAmountInCents() : ?int;
+    public function getAmountInCents(): ?int;
 
     /**
      * It will return amount in dollars if not set then null
      * @return float|null
      */
-    public function getAmountInDollars() : ?float;
+    public function getAmountInDollars(): ?float;
 
     /**
      * It get set exp month or null if not already set
      * @return int|null
      */
-    public function getExpMonth() : ?int;
+    public function getExpMonth(): ?int;
 
     /**
      * returns year in format YYYY, if not set then null would be returned
      * @return int|null
      */
-    public function getExpYear() : ?int;
+    public function getExpYear(): ?int;
 }

@@ -1,4 +1,6 @@
-<?php namespace ANet;
+<?php
+
+namespace ANet;
 
 use Illuminate\Support\ServiceProvider;
 
@@ -18,7 +20,7 @@ class AuthorizeNetServiceProvider extends ServiceProvider
      */
     public function loadMigrations()
     {
-        $this->loadMigrationsFrom(__DIR__.'/database/migrations');
+        $this->loadMigrationsFrom(__DIR__ . '/database/migrations');
     }
 
     /**
@@ -27,7 +29,7 @@ class AuthorizeNetServiceProvider extends ServiceProvider
      */
     public function setupConfig()
     {
-        $configLocation = __DIR__.'/Config/authorizenet.php';
+        $configLocation = __DIR__ . '/Config/authorizenet.php';
 
         $this->publishes([
             $configLocation => config_path('authorizenet.php')
@@ -43,8 +45,6 @@ class AuthorizeNetServiceProvider extends ServiceProvider
      * @return void
      */
     public function register()
-    {}
-
-
-
+    {
+    }
 }

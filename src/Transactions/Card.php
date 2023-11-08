@@ -1,4 +1,6 @@
-<?php namespace ANet\Transactions;
+<?php
+
+namespace ANet\Transactions;
 
 use net\authorize\api\controller as AnetController;
 use net\authorize\api\contract\v1 as AnetAPI;
@@ -81,7 +83,7 @@ class Card extends AuthorizeNet implements CardInterface
         // Create the payment data for a credit card
         $creditCard = new AnetAPI\CreditCardType();
         $creditCard->setCardNumber($this->getNumbers());
-        $creditCard->setExpirationDate($this->getExpYear().'-'.$this->getExpMonth());
+        $creditCard->setExpirationDate($this->getExpYear() . '-' . $this->getExpMonth());
         $creditCard->setCardCode($this->getCVV());
 
         // Add the payment data to a paymentType object
@@ -126,7 +128,7 @@ class Card extends AuthorizeNet implements CardInterface
     {
         $intYear = $year;
         if (strlen($year) === 2) {
-            $intYear = '20'.$year; // TODO: i know it should be dynamic but I guess I've at least 50 more years to update it
+            $intYear = '20' . $year; // TODO: i know it should be dynamic but I guess I've at least 50 more years to update it
         }
         $this->_data['expYear'] = $intYear;
         return $this;

@@ -1,10 +1,12 @@
 <?php
+
 namespace ANet;
 
 use ANet\CustomerProfile\CustomerProfile;
 use ANet\PaymentProfile\PaymentProfile;
 use ANet\PaymentProfile\PaymentProfileCharge;
 use ANet\PaymentProfile\PaymentProfileRefund;
+use ANet\PaymentProfile\PaymentProfileVoid;
 use ANet\Transactions\Card;
 use ANet\Transactions\Transactions;
 use DB;
@@ -92,6 +94,16 @@ class ANet
     public function refund($cents, $refTransId, $paymentProfileId)
     {
         return (new PaymentProfileRefund($this->user))->handle($cents, $refTransId, $paymentProfileId);
+    }
+
+    /**
+     * @param $refTransId
+     * @param $paymentProfileId
+     * @return mixed
+     */
+    public function void($refTransId, $paymentProfileId)
+    {
+        return (new PaymentProfileVoid($this->user))->handle($refTransId, $paymentProfileId);
     }
 
     /**

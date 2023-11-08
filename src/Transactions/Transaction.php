@@ -120,5 +120,4 @@ class Transaction extends AuthorizeNet
         }
         throw new BadMethodCallException('Method: ' . $method . ' Does not exists');
     }
-
 }

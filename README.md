@@ -44,9 +44,9 @@ credit card or bank account.
 
 In order to create payment profile you need to setup a form. Where user will provide card or bank details. Authorize.net provides Accept.js which will take data from
 your form and send it to authorize.net and once validated authorize.net will send you ```$opaqueData``` which then
-needs to be sent to your server and process creation of a payment profile. 
+needs to be sent to your server and process creation of a payment profile.
 
-After creating a payment profile successfully. You will get Payment Profile ID. Which you can use to charge that 
+After creating a payment profile successfully. You will get Payment Profile ID. Which you can use to charge that
 card or bank account for which this payment profile is created and you can reuse it as many times as it referring to a valid credit card or bank account.
 
 ---
@@ -55,7 +55,7 @@ card or bank account for which this payment profile is created and you can reuse
 ```php
 $paymentMethods = $user->anet()->getPaymentMethods();
 ```
-It will allow you to get all payment methods or payment profiles created by you.  
+It will allow you to get all payment methods or payment profiles created by you.
 
 to only get card. You can use.
 ```php
@@ -71,7 +71,7 @@ $paymentBanks = $user->anet()->getPaymentBankProfiles();
 
 #### Charge a Payment Profile (Charge Card or Bank)
 ```php
-// Amount in cents 
+// Amount in cents
 $user->anet()->charge(19000, $paymentProfileId]);
 ```
 User can be charged with Payment Profile.
@@ -92,6 +92,17 @@ $user->anet()->refund($amount_in_cents, $refsTransId, $payment_profile_id);
 ```
 
 `$amount_in_cents` it the refund amount.
+
+`$refsTransId` You get this id when you charge a user
+
+`$payment_profile_id` read above for more information on payment profile id. Basically, here it means refund to given payment profile id
+
+---
+
+#### Voiding transaction
+```php
+$user->anet()->void($refsTransId, $payment_profile_id);
+```
 
 `$refsTransId` You get this id when you charge a user
 
@@ -334,6 +345,6 @@ use ANet\Traits\ANetPayments;
 class User extends Model {
     use ANetPayments;
 }
-``` 
+```
 
 ---

@@ -32,7 +32,7 @@ class Batch extends AuthorizeNet
         $request->setFirstSettlementDate(Carbon::parse($firstSettlementDate)->toDateTime());
         $request->setLastSettlementDate(Carbon::parse($lastSettlementDate)->toDateTime());
 
-        $controller = new AnetController\GetSettledBatchListController ($request);
+        $controller = new AnetController\GetSettledBatchListController($request);
 
         $response = $this->execute($controller);
 
@@ -43,7 +43,7 @@ class Batch extends AuthorizeNet
         if ($response != null && $response->getMessages()->getResultCode() == "Ok") {
             return array_map(function ($batch) {
                 $batch = $this->normalizeBatchToArray($batch);
-//                $stats = $this->normalizeBatchStatistics($batch->getStatistics());
+                //                $stats = $this->normalizeBatchStatistics($batch->getStatistics());
                 $batch['statistics'] = $batch->getStatistics();
                 return $batch;
             }, $response->getBatchList());
