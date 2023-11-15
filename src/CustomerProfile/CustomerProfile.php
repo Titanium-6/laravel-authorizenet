@@ -65,7 +65,9 @@ class CustomerProfile extends AuthorizeNet
                 return $response;
             }
 
-            throw new \Exception('Failed, To create customer profile.');
+            $response = (object)['status' => false, 'message' => 'Failed, To create customer profile. ' . $response->getMessages()->getMessage()[0]->getText()];
+
+            return $response;
         }
 
         return $response;
