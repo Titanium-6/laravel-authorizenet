@@ -61,11 +61,10 @@ class CustomerProfile extends AuthorizeNet
 
                 $profile_id = $matches['profileId'] ?? '';
 
-                $response = (object)['status' => true, 'profile_id' => $profile_id];
-                return $response;
+                return (object)['status' => true, 'profile_id' => $profile_id];
             }
 
-            throw new \Exception('Failed, To create customer profile.');
+            throw new \Exception('Failed, To create customer profile. ' . $response->getMessages()->getMessage()[0]->getText());
         }
 
         return $response;
